@@ -25,6 +25,8 @@ computeDMP <- function(beta, covariates,
 
   check_samples_covariates(beta, covariates)
 
+  design <- model.matrix(as.formula(formula), covariates)
+
   if (is.null(responseVar)){
     interesting_var <- rev(all.vars(as.formula(formula)))[1]
     coef_idx <- grep(interesting_var, colnames(design))
@@ -38,14 +40,14 @@ computeDMP <- function(beta, covariates,
     coef_idx <- grep(responseVar, colnames(design))
   }
 
-  design <- model.matrix(as.formula(formula), covariates)
-  fit <- limma::eBayes(limma::lmFit(beta, design))
-
-  if (useM){
-    beta<- replace(beta,which(beta <= capEdges[1]), capEdges[1])
+  if (useM) {
+    message("Using M-value")
+    beta <- replace(beta,which(beta <= capEdges[1]), capEdges[1])
     beta <- replace(beta,which(beta >= capEdges[2]),capEdges[2])
     beta <- log((beta/(1-beta)),2) # M=log2(beta)/(1-beta) Convert to M values
   }
+
+  fit <- limma::eBayes(limma::lmFit(beta, design))
   # dmpFinder() # from minfi
   DMP <- limma::topTable(fit, number=nrow(beta),adjust.method=adjust.method,
                          p.value=adjPVal, coef=coef_idx)

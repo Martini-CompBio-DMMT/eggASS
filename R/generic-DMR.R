@@ -151,7 +151,8 @@ compute_DMR_from_DMP <- function(DMP,
     cutoff=NULL,
     pickCutoff=0.99,
     cores = 3,
-    adjPvalDmr=0.05) {
+    adjPvalDmr=0.05,
+    seeds=1234) {
 
   cpg.idx <- intersect(rownames(DMP),rownames(probe.features)) #
   Anno <- probe.features[cpg.idx,]
