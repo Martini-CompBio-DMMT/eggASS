@@ -131,7 +131,6 @@ computeDMR <- function(
 #' General function to compute Differentially methylated Regions
 #'
 #' @param DMP full distribution of t from DMP test
-#' @param probe_annotation for EPIC array data("IlluminaHumanMethylationEPICanno.ilm10b2.hg19")
 #' @param minProbes min number of probes in cluster
 #' @param maxGap max gap dimension
 #' @param bpspan base pair span
@@ -143,7 +142,7 @@ computeDMR <- function(
 #' @export
 #'
 compute_DMR_from_DMP <- function(DMP,
-    probe_annotation = get("probe.features"),
+    # probe_annotation = get("probe.features"),
     minProbes = 7,
     maxGap = 300,
     bpspan=1000,
