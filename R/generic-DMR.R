@@ -186,7 +186,7 @@ compute_DMR_from_DMP <- function(DMP,
     cutoff <- quantile(abs(permBeta), pickCutoff, na.rm = TRUE)
   }
   # Start to find bumps
-  tab <- regionFinder(x = rawBeta_fitted, chr = chr, pos = pos,
+  tab <- bumphunter::regionFinder(x = rawBeta_fitted, chr = chr, pos = pos,
                       cluster = cluster,cutoff = cutoff, verbose = FALSE)
   # message(sprintf("[Paired DMR] Found %s bumps.",nrow(tab)))
 
