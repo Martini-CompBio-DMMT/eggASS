@@ -87,7 +87,7 @@ computeDMR <- function(
   chunksize <- ceiling(B/cores)
   subMat <- NULL
   require(doRNG)
-  nulltabs <- foreach(subMat = iter(permBeta, by = "col", chunksize = chunksize),.combine = "c", .packages = "bumphunter") %dorng% {
+  nulltabs <- foreach(subMat = iterators::iter(permBeta, by = "col", chunksize = chunksize),.combine = "c", .packages = "bumphunter") %dorng% {
     apply(subMat, 2, regionFinder, chr = chr, pos = pos,cluster = cluster, cutoff = cutoff,verbose = FALSE)}
 
   # Calulcate p value and FWER.
@@ -193,7 +193,7 @@ compute_DMR_from_DMP <- function(DMP,
   chunksize <- ceiling(B/cores)
   subMat <- NULL
   require(doRNG)
-  nulltabs <- foreach(subMat = iter(permBeta, by = "col", chunksize = chunksize),
+  nulltabs <- foreach(subMat = iterators::iter(permBeta, by = "col", chunksize = chunksize),
                       .combine = "c", .packages = "bumphunter") %dorng% {
                         apply(subMat, 2, regionFinder, chr = chr, pos = pos,
                               cluster = cluster, cutoff = cutoff,verbose = FALSE)

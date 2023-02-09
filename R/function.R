@@ -27,6 +27,7 @@ methyl_smooth <- function(y, x, mycluster, bpspan=bpspan, cores=cores) {
     parallelclusters <- parallel::makeCluster(cores)
     doParallel::registerDoParallel(parallelclusters)
     foreach::getDoParWorkers()
+    # %dopar% must be imported from foreach
     tmpSmooth <- foreach(i = 1:ncol(y), .combine = cbind) %dopar% smallfunction(y[,i],mycluster,tmpPos,tmpSpan)
   }
   return(tmpSmooth)
