@@ -25,7 +25,7 @@ methyl_smooth <- function(y, x, mycluster, bpspan=bpspan, cores=cores) {
     }
     message("Parallel on Matrix.")
     parallelclusters <- doParallel::makeCluster(cores)
-    doParallel::registerDoParallel(parallelclusters)
+    parallel::registerDoParallel(parallelclusters)
     foreach::getDoParWorkers()
     tmpSmooth <- foreach(i = 1:ncol(y), .combine = cbind) %dopar% smallfunction(y[,i],mycluster,tmpPos,tmpSpan)
   }
